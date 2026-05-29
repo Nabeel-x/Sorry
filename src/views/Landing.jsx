@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { LANDING_BUTTONS } from "../models/constants";
 import { WebGLStars } from "../components/WebGLStars";
 import { Modal } from "../components/Modal";

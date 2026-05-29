@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FONTS } from "./models/constants";
 import { Landing } from "./views/Landing";
 import { ConstellationView } from "./views/ConstellationView";

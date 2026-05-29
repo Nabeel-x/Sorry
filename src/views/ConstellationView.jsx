@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { CONSTELLATIONS } from "../models/constants";
 import { Canvas2D } from "../components/Canvas2D";
 import { Tooltip } from "../components/Tooltip";
@@ -27,7 +27,6 @@ export function ConstellationView({ type, onBack }) {
   }, [findNear]);
 
   const onTouch = useCallback((e) => {
-    e.preventDefault();
     const t = e.touches[0];
     const s = findNear(t.clientX, t.clientY);
     setHovered(s);
@@ -62,26 +61,47 @@ export function ConstellationView({ type, onBack }) {
       />
 
       {/* Back button (moved to bottom) */}
-      <button onClick={onBack} style={{
-        position: "fixed", bottom: 24, left: 24, zIndex: 30,
-        background: "rgba(4,5,18,0.8)",
-        border: `1px solid rgba(${r},${g},${b},.25)`,
-        color: `rgba(${r},${g},${b},.9)`,
-        fontFamily: "'Cinzel',serif", fontSize: "0.58rem",
-        letterSpacing: "0.28em", textTransform: "uppercase",
-        padding: "8px 16px", borderRadius: 2, cursor: "pointer",
-        backdropFilter: "blur(10px)",
-        transition: "all 0.3s ease",
-      }}
-        onMouseEnter={e => {
+      <button
+        onClick={onBack}
+        style={{
+          position: "fixed",
+
+          // changed
+          top: 20,
+          left: 20,
+
+          zIndex: 30,
+          background: "rgba(4,5,18,0.8)",
+          border: `1px solid rgba(${r},${g},${b},.25)`,
+          color: `rgba(${r},${g},${b},.9)`,
+          fontFamily: "'Cinzel',serif",
+          fontSize: "0.58rem",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          padding: "10px 16px",
+
+          // better for touch
+          minHeight: 44,
+
+          borderRadius: 2,
+          cursor: "pointer",
+          backdropFilter: "blur(10px)",
+          transition: "all 0.3s ease",
+
+          // prevents iPhone safe-area issues
+          paddingTop: "max(10px, env(safe-area-inset-top))",
+        }}
+        onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = `rgba(${r},${g},${b},.6)`;
           e.currentTarget.style.color = `rgba(${r},${g},${b},1)`;
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = `rgba(${r},${g},${b},.25)`;
           e.currentTarget.style.color = `rgba(${r},${g},${b},.9)`;
         }}
-      >← return</button>
+      >
+        ← return
+      </button>
 
       {/* Title */}
       <div style={{
@@ -103,15 +123,6 @@ export function ConstellationView({ type, onBack }) {
         }}>
           {data.subtitle}
         </div>
-      </div>
-
-      {/* Counter */}
-      <div style={{
-        position: "fixed", top: 28, right: 28, zIndex: 10, pointerEvents: "none",
-        fontFamily: "'Cinzel',serif", fontSize: "0.58rem", letterSpacing: "0.25em",
-        color: `rgba(${r},${g},${b},.35)`, textTransform: "uppercase",
-      }}>
-        {revealed.size} / {data.stars.length} revealed
       </div>
 
       {/* Intro hint */}

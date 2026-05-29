@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 export function Modal({ open, onClose, children }) {
   useEffect(() => {

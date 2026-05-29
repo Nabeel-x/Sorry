@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BG_STARS } from "../models/constants";
 
 export function Canvas2D({ data, hovered, revealed, canvasRef, onPointerMove, onPointerLeave, onTouchMove, onTouchEnd, sizeRef, toCanvas }) {
